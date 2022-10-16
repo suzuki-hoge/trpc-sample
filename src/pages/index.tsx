@@ -1,12 +1,13 @@
 import type {NextPage} from 'next'
 import {useState} from "react";
 import {clientTrpc} from "client/client-trpc";
+import {Task} from "domain/task";
 
 const Home: NextPage = () => {
   const context = clientTrpc.useContext()
 
   let tasksQuery = clientTrpc.task.all.useQuery({status: 'doing'}, {})
-  let tasks = tasksQuery.data ?? []
+  let tasks: Task[] = tasksQuery.data ?? []
 
   const [error, setError] = useState('')
 
